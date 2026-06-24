@@ -1,24 +1,37 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from "@tanstack/react-query";
+
+type Recipe = {
+  id: number;
+  name: string;
+  ingredients: {
+    name: string;
+    amount: number;
+    unit: string;
+    calorie: number;
+    price: number;
+  }[];
+  instructions: string[];
+  calories: number;
+  price: number;
+};
 
 function App() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['ping'],
-    queryFn: () => fetch('/api/ping').then(res => res.text())
-  })
+  const { data, isLoading, error } = useQuery<Recipe[]>({
+    queryKey: ["recipes"],
+    queryFn: () => fetch("/api/recipes").then((res) => res.json()),
+  });
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900">🍝 Recipe App</h1>
-      <p className="mt-4 text-gray-600">
-        Backend says:{' '}
-        <span className="font-mono">
-          {isLoading && 'loading...'}
-          {error && `Error: ${error.message}`}
-          {data}
-        </span>
-      </p>
+    <div className="p-12 max-w-2xl mx-auto">
+      {isLoading && <p>Laddar...</p>}
+      {error && <p>Fel: {error.message}</p>}
+      <ul>
+        {data?.map((recipe) => (
+          <li key={recipe.id}>{recipe.name}</li>
+        ))}
+      </ul>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
