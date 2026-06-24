@@ -1,0 +1,27 @@
+### Create a recipe
+POST http://localhost:8080/api/recipes
+Content-Type: application/json
+
+{
+  "name": "Egg & bacon sandwich",
+  "calories": 0,
+  "price": 0,
+  "instructions": ["Fry bacon", "Toast bread", "Add together"],
+  "ingredients": [
+    { "name": "Bread", "amount": 200, "unit": "g", "calorie": 300, "price": 3 },
+    { "name": "Bacon", "amount": 500, "unit": "g", "calorie": 400, "price": 4.00 }
+  ]
+}
+
+###
+GET http://localhost:8080/api/recipes
+ Content-Type: application/json
+
+###
+ GET http://localhost:8080/api/recipes/3
+
+###
+GET http://localhost:8080/api/recipes/999
+
+###
+DELETE http://localhost:8080/api/recipes/3
