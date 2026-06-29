@@ -1,3 +1,4 @@
+
 ### Create a recipe
 POST http://localhost:8080/api/recipes
 Content-Type: application/json
@@ -13,7 +14,62 @@ Content-Type: application/json
   ]
 }
 
-###
+### Skapa recept 1 — Carbonara
+POST http://localhost:8080/api/recipes
+Content-Type: application/json
+
+{
+  "name": "Spaghetti Carbonara",
+  "instructions": ["Koka pastan", "Stek guanciale", "Vispa ägg och ost", "Blanda allt"],
+  "ingredients": [
+    { "name": "Spaghetti", "amount": 400, "unit": "g", "calorie": 0, "price": 0 },
+    { "name": "Guanciale", "amount": 150, "unit": "g", "calorie": 0, "price": 0 },
+    { "name": "Ägg", "amount": 4, "unit": "st", "calorie": 0, "price": 0 },
+    { "name": "Pecorino", "amount": 100, "unit": "g", "calorie": 0, "price": 0 }
+  ]
+}
+
+### Skapa recept 2 — Köttbullar
+POST http://localhost:8080/api/recipes
+Content-Type: application/json
+
+{
+  "name": "Köttbullar med potatismos",
+  "instructions": ["Rulla köttbullar", "Stek dem", "Koka och mosa potatis", "Gör gräddsås"],
+  "ingredients": [
+    { "name": "Köttfärs", "amount": 500, "unit": "g", "calorie": 0, "price": 0 },
+    { "name": "Potatis", "amount": 800, "unit": "g", "calorie": 0, "price": 0 },
+    { "name": "Grädde", "amount": 200, "unit": "ml", "calorie": 0, "price": 0 }
+  ]
+}
+
+### Skapa recept 3 — Smoothie
+POST http://localhost:8080/api/recipes
+Content-Type: application/json
+
+{
+  "name": "Bärsmoothie",
+  "instructions": ["Mixa allt", "Servera kallt"],
+  "ingredients": [
+    { "name": "Blandade bär", "amount": 200, "unit": "g", "calorie": 0, "price": 0 },
+    { "name": "Banan", "amount": 1, "unit": "st", "calorie": 0, "price": 0 },
+    { "name": "Yoghurt", "amount": 300, "unit": "ml", "calorie": 0, "price": 0 }
+  ]
+}
+### Uppdatera recept 1
+PUT http://localhost:8080/api/recipes/1
+Content-Type: application/json
+
+{
+  "name": "Pannkakor (ändrad)",
+  "instructions": ["Nytt steg", "nästa steg"],
+  "ingredients": [
+    { "name": "Mjöl", "amount": 100, "unit": "g", "calorie": 300, "price": 3 },
+    { "name": "Ägg", "amount": 2, "unit": "st", "calorie": 400, "price": 4.00 }
+  ]
+}
+
+### GET ALL RECIPES
 GET http://localhost:8080/api/recipes
  Content-Type: application/json
 
@@ -25,3 +81,4 @@ GET http://localhost:8080/api/recipes/999
 
 ###
 DELETE http://localhost:8080/api/recipes/3
+
