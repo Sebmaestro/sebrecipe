@@ -12,6 +12,7 @@ function RecipeList() {
     <div className="p-12 max-w-2xl mx-auto">
       {isLoading && <p>Laddar...</p>}
       {error && <p>Fel: {error.message}</p>}
+      {!isLoading && !error &&<h1 className="text-2xl font-bold mb-4">Recept</h1>}
       <ul>
         {data?.map((recipe) => (
           <li key={recipe.id}>
