@@ -82,3 +82,8 @@ GET http://localhost:8080/api/recipes/999
 ###
 DELETE http://localhost:8080/api/recipes/3
 
+###
+DELETE http://localhost:8080/api/recipes
+
+### Näringsvärden
+GET https://dataportal.livsmedelsverket.se/livsmedel/api/v1/livsmedel/1/naringsvarden

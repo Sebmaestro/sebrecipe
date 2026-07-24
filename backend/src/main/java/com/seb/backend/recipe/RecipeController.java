@@ -49,4 +49,12 @@ public class RecipeController {
     public void delete(@PathVariable Long id) {
         service.deleteRecipe(id);
     }
+
+    @DeleteMapping
+    public void deleteAll() {
+        List<Recipe> recipes = service.getAllRecipes();
+        for (Recipe recipe : recipes) {
+            service.deleteRecipe(recipe.getId());
+        }
+    }
 }

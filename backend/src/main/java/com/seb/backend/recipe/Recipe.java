@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OrderColumn;
 import lombok.Data;
 
 @Data
@@ -20,6 +21,7 @@ public class Recipe {
     private List<Ingredient> ingredients; 
 
     @ElementCollection
+    @OrderColumn(name = "step_no")
     private List<String> instructions;
 
     private String name;
