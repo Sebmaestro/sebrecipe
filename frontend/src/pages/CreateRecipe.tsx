@@ -5,14 +5,15 @@ import type { Ingredient } from "../types";
 function CreateRecipe() {
   const [name, setName] = useState("");
   const queryClient = useQueryClient();
-  //const [calories, setCalories] = useState(0);
+  const [calories, setCalories] = useState("");
   //const [price, setPrice] = useState(0);
   const [instructions, setInstructions] = useState<string[]>([]);
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-
+  
   const mutation = useMutation({
     mutationFn: (newRecipe: {
       name: string;
+      calories: number;
       instructions: string[];
       ingredients: Ingredient[];
     }) =>
@@ -37,7 +38,7 @@ function CreateRecipe() {
   const addIngredient = () =>
     setIngredients([
       ...ingredients,
-      { name: "", amount: 0, unit: "", calorie: 0, price: 0 },
+      { name: "", amount: 0, unit: "", price: 0 },
     ]);
 
   const updateIngredient = (
@@ -59,7 +60,7 @@ function CreateRecipe() {
         className="flex flex-col gap-2"
         onSubmit={(e) => {
           e.preventDefault();
-          mutation.mutate({ name, instructions, ingredients });
+          mutation.mutate({ name, calories, instructions, ingredients });
         }}
       >
         <input
@@ -67,6 +68,13 @@ function CreateRecipe() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Receptnamn"
+        />
+
+        <input 
+        className={inputClass} 
+        value={calories}
+        onChange={(e) => setCalories(Number(e.target.value))}
+        placeholder="Kalorier"
         />
 
         {ingredients.map((ingredient, index) => (

@@ -14,11 +14,12 @@ function RecipeDetail() {
       {isLoading && <p>Laddar...</p>}
       {error && <p>Fel: {error.message}</p>}
       <h2>{data?.name}</h2>
+      <p>{data?.calories} kcal</p>
       <h3>Ingredienser:</h3>
       {data?.ingredients.map((ingredient, index) => (
         <p key={index}>
           {ingredient.amount} {ingredient.unit} {ingredient.name}(
-          {ingredient.calorie} kcal, {ingredient.price} kr)
+          {ingredient.price} kr)
         </p>
       ))}
       <h3>Instruktioner:</h3>

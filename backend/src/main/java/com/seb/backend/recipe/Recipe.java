@@ -2,6 +2,7 @@ package com.seb.backend.recipe;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,9 @@ public class Recipe {
     private List<String> instructions;
 
     private String name;
-    private int calories;
+
+    @Column(nullable = true)
+    private Integer calories;
+
     private BigDecimal price;   
 }

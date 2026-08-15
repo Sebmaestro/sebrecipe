@@ -49,6 +49,7 @@ Content-Type: application/json
 
 {
   "name": "Bärsmoothie",
+  "calories": 50,
   "instructions": ["Mixa allt", "Servera kallt"],
   "ingredients": [
     { "name": "Blandade bär", "amount": 200, "unit": "g", "calorie": 0, "price": 0 },
