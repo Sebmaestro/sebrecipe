@@ -13,7 +13,7 @@ function EditRecipe() {
     const { id } = useParams();
     const { data, isLoading, error } = useQuery<Recipe>({
         queryKey: ["recipes", id],
-        queryFn: () => fetch(`/api/recipes/${id}`).then((res) => res.json()),
+        queryFn: () => fetch(`/api/recipes/${id}`, { credentials: "include" }).then((res) => res.json()),
     });
 
     const navigate = useNavigate();
@@ -33,6 +33,7 @@ function EditRecipe() {
             fetch(`/api/recipes/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify(updated),
             }).then((res) => res.json()),
         onSuccess: () => {
@@ -180,7 +181,7 @@ function EditRecipe() {
                 Spara
             </button>
 
-            
+
 
 
         </div>

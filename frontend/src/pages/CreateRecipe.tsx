@@ -6,12 +6,12 @@ import type { Ingredient } from "../types";
 function CreateRecipe() {
   const [name, setName] = useState("");
   const queryClient = useQueryClient();
-  const [calories, setCalories] = useState("");
+  const [calories, setCalories] = useState<number | "">("");
   //const [price, setPrice] = useState(0);
   const [instructions, setInstructions] = useState<string[]>([]);
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const navigate = useNavigate();
-  
+
   const mutation = useMutation({
     mutationFn: (newRecipe: {
       name: string;
@@ -22,6 +22,7 @@ function CreateRecipe() {
       fetch("/api/recipes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(newRecipe),
       }).then((res) => res.json()),
     onSuccess: () => {
@@ -63,7 +64,12 @@ function CreateRecipe() {
         className="flex flex-col gap-2"
         onSubmit={(e) => {
           e.preventDefault();
-          mutation.mutate({ name, calories, instructions, ingredients });
+          mutation.mutate({
+            name,
+            calories: calories === "" ? 0 : calories,
+            instructions,
+            ingredients,
+          });
         }}
       >
         <input
@@ -73,11 +79,12 @@ function CreateRecipe() {
           placeholder="Receptnamn"
         />
 
-        <input 
-        className={inputClass} 
-        value={calories}
-        onChange={(e) => setCalories(Number(e.target.value))}
-        placeholder="Kalorier"
+        <input
+          className={inputClass}
+          type="number"
+          value={calories}
+          onChange={(e) => setCalories(e.target.value === "" ? "" : Number(e.target.value))}
+          placeholder="Kalorier"
         />
 
         {ingredients.map((ingredient, index) => (

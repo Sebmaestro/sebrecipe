@@ -1,11 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Recipe } from "../types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RecipeList() {
   const { data, isLoading, error } = useQuery<Recipe[]>({
     queryKey: ["recipes"],
-    queryFn: () => fetch("/api/recipes").then((res) => res.json()),
+    queryFn: () => fetch("/api/recipes", { credentials: "include" }).then((res) => res.json()),
+  });
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const logout = useMutation({
+    mutationFn: () =>
+      fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      }),
+    onSuccess: () => {
+      queryClient.clear();
+      navigate("/login");
+    },
   });
 
   return (
@@ -15,6 +30,12 @@ function RecipeList() {
 
       {data && (
         <>
+          <button
+            onClick={() => logout.mutate()}
+            className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100"
+          >
+            Logga ut
+          </button>
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-3xl font-bold">Recept</h1>
             <Link
