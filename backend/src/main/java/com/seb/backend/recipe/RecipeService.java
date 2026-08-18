@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.seb.backend.user.User;
+
 @Service
 public class RecipeService {
 
@@ -31,4 +33,9 @@ public class RecipeService {
     public void deleteRecipe(Long id) {
         repository.deleteById(id);
     }
+
+    public List<Recipe> getRecipesByOwner(User owner) {
+        return repository.findByOwner(owner);
+    }
+
 }

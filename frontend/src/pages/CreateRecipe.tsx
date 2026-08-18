@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Ingredient } from "../types";
@@ -9,6 +10,7 @@ function CreateRecipe() {
   //const [price, setPrice] = useState(0);
   const [instructions, setInstructions] = useState<string[]>([]);
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const navigate = useNavigate();
   
   const mutation = useMutation({
     mutationFn: (newRecipe: {
@@ -24,6 +26,7 @@ function CreateRecipe() {
       }).then((res) => res.json()),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recipes"] });
+      navigate("/recipes");
     },
   });
 

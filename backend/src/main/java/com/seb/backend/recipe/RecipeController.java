@@ -2,6 +2,7 @@ package com.seb.backend.recipe;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.seb.backend.user.User;
 
 @RestController
 @RequestMapping("/api/recipes")
@@ -30,12 +31,13 @@ public class RecipeController {
     }
 
     @GetMapping
-    public List<Recipe> getAll() {
-        return service.getAllRecipes();
+    public List<Recipe> getAll(@AuthenticationPrincipal User user) {
+        return service.getRecipesByOwner(user);
     }
-    
+
     @PostMapping
-    public Recipe create(@RequestBody Recipe recipe) {
+    public Recipe create(@RequestBody Recipe recipe, @AuthenticationPrincipal User user) {
+        recipe.setOwner(user);
         return service.saveRecipe(recipe);
     }
 

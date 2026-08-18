@@ -1,6 +1,9 @@
 package com.seb.backend.recipe;
+
 import java.math.BigDecimal;
 import java.util.List;
+
+import com.seb.backend.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -8,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OrderColumn;
 import lombok.Data;
 
@@ -19,7 +24,7 @@ public class Recipe {
     private Long id;
 
     @ElementCollection
-    private List<Ingredient> ingredients; 
+    private List<Ingredient> ingredients;
 
     @ElementCollection
     @OrderColumn(name = "step_no")
@@ -30,5 +35,9 @@ public class Recipe {
     @Column(nullable = true)
     private Integer calories;
 
-    private BigDecimal price;   
+    private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 }

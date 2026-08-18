@@ -72,6 +72,7 @@ Content-Type: application/json
 
 ### GET ALL RECIPES
 GET http://localhost:8080/api/recipes
+Authorization: Basic seb:hemligt123
  Content-Type: application/json
 
 ###
@@ -88,3 +89,12 @@ DELETE http://localhost:8080/api/recipes
 
 ### Näringsvärden
 GET https://dataportal.livsmedelsverket.se/livsmedel/api/v1/livsmedel/1/naringsvarden
+
+### Register user
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "seb",
+  "password": "hemligt123"
+}
