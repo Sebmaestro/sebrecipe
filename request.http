@@ -98,3 +98,57 @@ Content-Type: application/json
   "username": "seb",
   "password": "hemligt123"
 }
+
+
+
+
+
+
+### Registrera seb
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "seb",
+  "password": "hemligt123"
+}
+
+### Registrera en andra användare
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "kalle",
+  "password": "hemligt123"
+}
+
+### Skapa recept som seb
+POST http://localhost:8080/api/recipes
+Authorization: Basic seb:hemligt123
+Content-Type: application/json
+
+{
+  "name": "Pannkakor",
+  "calories": 400,
+  "ingredients": [
+    { "name": "Mjöl", "amount": 300, "unit": "g", "price": 12 },
+    { "name": "Mjölk", "amount": 5, "unit": "dl", "price": 8 }
+  ],
+  "instructions": ["Blanda ingredienserna", "Stek i panna"]
+}
+
+### Lista seb:s recept
+GET http://localhost:8080/api/recipes
+Authorization: Basic seb:hemligt123
+
+### Lista kalles recept — ska vara tom
+GET http://localhost:8080/api/recipes
+Authorization: Basic kalle:hemligt123
+
+### Hämta seb:s recept som seb — ska ge 200
+GET http://localhost:8080/api/recipes/1
+Authorization: Basic seb:hemligt123
+
+### Hämta seb:s recept som kalle — ska ge 403
+GET http://localhost:8080/api/recipes/1
+Authorization: Basic kalle:hemligt123

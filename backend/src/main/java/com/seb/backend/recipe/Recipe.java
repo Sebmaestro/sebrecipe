@@ -3,8 +3,9 @@ package com.seb.backend.recipe;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.seb.backend.user.User;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -37,6 +38,7 @@ public class Recipe {
 
     private BigDecimal price;
 
+    @JsonIgnore // Prevents the user to be exposed in the API response because of potential security concerns. Might want to change later if something from user is needed
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
