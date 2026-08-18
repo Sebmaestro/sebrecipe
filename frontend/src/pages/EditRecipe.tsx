@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Recipe, Ingredient } from "../types";
 import { useState, useEffect } from "react";
@@ -16,9 +16,13 @@ function EditRecipe() {
         queryFn: () => fetch(`/api/recipes/${id}`).then((res) => res.json()),
     });
 
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (data) {
+            setName(data.name);
+            setCalories(data.calories);
             setIngredients(data.ingredients);
             setInstructions(data.instructions);
         }
@@ -33,6 +37,7 @@ function EditRecipe() {
             }).then((res) => res.json()),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["recipes"] });
+            navigate(`/recipes/${id}`);
         },
     });
 
@@ -57,32 +62,43 @@ function EditRecipe() {
         setIngredients(copy);
     };
 
+    //Remove the one that we clicked on
+    const removeStep = (index: number) =>
+        setInstructions(instructions.filter((_, i) => i !== index));
+
+    const removeIngredient = (index: number) =>
+        setIngredients(ingredients.filter((_, i) => i !== index));
+
     return (
         <div className="p-12 max-w-2xl mx-auto flex flex-col gap-2">
             {isLoading && <p>Laddar...</p>}
             {error && <p>Fel: {error.message}</p>}
-            <h1 className="text-2xl font-bold mb-4">Redigera {data?.name} med id {id}</h1>
+            <h1 className="text-2xl font-bold mb-4">Redigera recept</h1>
 
-            <input
-                className="border border-gray-300 rounded px-2 py-1"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Receptnamn"
-            />
-
-            <input
-                className="border border-gray-300 rounded px-2 py-1"
-                type="number"
-                value={calories}
-                onChange={(e) => setCalories(Number(e.target.value))}
-                placeholder="Kalorier"
-            />
+            <label className="flex flex-col gap-1">
+                <span className="text-sm text-gray-600">Receptnamn</span>
+                <input
+                    className="border border-gray-300 rounded px-2 py-1"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </label>
+            <label className="flex flex-col gap-1">
+                <span className="text-sm text-gray-600">Kalorier</span>
+                <input
+                    className="border border-gray-300 rounded px-2 py-1"
+                    type="number"
+                    value={calories}
+                    onChange={(e) => setCalories(Number(e.target.value))}
+                />
+            </label>
             <h2 className="text-lg font-medium mt-6 mb-2">Ingredienser</h2>
             <div className="flex gap-2 text-sm text-gray-600">
                 <span className="w-40">Namn</span>
                 <span className="w-24">Mängd</span>
                 <span className="w-24">Enhet</span>
                 <span className="w-24">Pris</span>
+                <span className="w-8"></span>
             </div>
             {ingredients.map((ingredient, index) => (
                 <div key={index} className="flex gap-2">
@@ -116,6 +132,14 @@ function EditRecipe() {
                         placeholder="Pris"
                     />
 
+                    <button
+                        type="button"
+                        onClick={() => removeIngredient(index)}
+                        className="px-2 text-gray-400 hover:text-red-600"
+                    >
+                        ✕
+                    </button>
+
                 </div>
             ))}
             <button className="px-3 py-1 border border-gray-400 rounded text-sm hover:bg-gray-100" type="button" onClick={addIngredient}>+ Lägg till ingrediens</button>
@@ -123,13 +147,20 @@ function EditRecipe() {
 
             <h2 className="text-lg font-medium mb-2">Instruktioner</h2>
             {instructions.map((step, index) => (
-                <div key={index}>
+                <div key={index} className="flex gap-2">
                     <input
-                        className="border border-gray-300 rounded px-2 py-1 w-full"
+                        className="border border-gray-300 rounded px-2 py-1 flex-1"
                         value={step}
                         onChange={(e) => updateStep(index, e.target.value)}
                         placeholder={`Steg ${index + 1}`}
                     />
+                    <button
+                        type="button"
+                        onClick={() => removeStep(index)}
+                        className="px-2 text-gray-400 hover:text-red-600"
+                    >
+                        ✕
+                    </button>
                 </div>
             ))}
 
@@ -148,6 +179,8 @@ function EditRecipe() {
             >
                 Spara
             </button>
+
+            
 
 
         </div>

@@ -11,15 +11,41 @@ function RecipeList() {
   return (
     <div className="p-12 max-w-2xl mx-auto">
       {isLoading && <p>Laddar...</p>}
-      {error && <p>Fel: {error.message}</p>}
-      {!isLoading && !error &&<h1 className="text-2xl font-bold mb-4">Recept</h1>}
-      <ul>
-        {data?.map((recipe) => (
-          <li key={recipe.id}>
-            <Link to={`/recipes/${recipe.id}`}>{recipe.name}</Link>
-          </li>
-        ))}
-      </ul>
+      {error && <p className="text-red-600">Fel: {error.message}</p>}
+
+      {data && (
+        <>
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-3xl font-bold">Recept</h1>
+            <Link
+              to="/new"
+              className="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+            >
+              + Nytt recept
+            </Link>
+          </div>
+
+          {data.length === 0 ? (
+            <p className="text-gray-500">Inga recept än. Skapa ditt första!</p>
+          ) : (
+            <ul className="divide-y divide-gray-200">
+              {data.map((recipe) => (
+                <li key={recipe.id}>
+                  <Link
+                    to={`/recipes/${recipe.id}`}
+                    className="flex items-center justify-between py-3 hover:bg-gray-50 px-2 -mx-2 rounded"
+                  >
+                    <span className="font-medium">{recipe.name}</span>
+                    {recipe.calories > 0 && (
+                      <span className="text-sm text-gray-500">{recipe.calories} kcal</span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      )}
     </div>
   );
 }

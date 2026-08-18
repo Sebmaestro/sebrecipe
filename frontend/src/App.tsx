@@ -7,7 +7,7 @@ import EditRecipe from "./pages/EditRecipe";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<RecipeList />} />
+      <Route path="/recipes" element={<RecipeList />} />
       <Route path="/recipes/:id" element={<RecipeDetail />} />
       <Route path="/new" element={<CreateRecipe />} />
       <Route path="/recipes/:id/edit" element={<EditRecipe />} />
