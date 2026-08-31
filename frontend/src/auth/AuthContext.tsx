@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 type AuthContextValue = {
   username: string | null;
   isLoading: boolean;
-  refresh: () => void;
+  refresh: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);

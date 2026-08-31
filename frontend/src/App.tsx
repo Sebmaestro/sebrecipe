@@ -13,12 +13,11 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        
+        <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Index />} />
           <Route path="/recipes" element={<RecipeList />} />
           <Route path="/recipes/:id" element={<RecipeDetail />} />
           <Route path="/new" element={<CreateRecipe />} />

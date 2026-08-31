@@ -19,8 +19,8 @@ function Login() {
             }).then((res) => {
                 if (!res.ok) throw new Error("Fel användarnamn eller lösenord");
             }),
-        onSuccess: () => {
-            refresh();
+        onSuccess: async () => {
+            await refresh();
             navigate("/recipes");
         },
     });
