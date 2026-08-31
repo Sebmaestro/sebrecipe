@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Recipe } from "../types";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 
 function RecipeList() {
   const { data, isLoading, error } = useQuery<Recipe[]>({
@@ -10,6 +11,7 @@ function RecipeList() {
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { refresh } = useAuth();
 
   const logout = useMutation({
     mutationFn: () =>
@@ -19,6 +21,7 @@ function RecipeList() {
       }),
     onSuccess: () => {
       queryClient.clear();
+      refresh();
       navigate("/login");
     },
   });

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 
 function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const { refresh } = useAuth();
 
     const mutation = useMutation({
         mutationFn: (credentials: { username: string; password: string }) =>
@@ -17,7 +19,10 @@ function Login() {
             }).then((res) => {
                 if (!res.ok) throw new Error("Fel användarnamn eller lösenord");
             }),
-        onSuccess: () => navigate("/recipes"),
+        onSuccess: () => {
+            refresh();
+            navigate("/recipes");
+        },
     });
 
     return (

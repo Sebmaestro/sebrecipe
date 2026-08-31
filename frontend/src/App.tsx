@@ -6,18 +6,26 @@ import EditRecipe from "./pages/EditRecipe";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { AuthProvider } from "./auth/AuthContext";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/recipes" element={<RecipeList />} />
-      <Route path="/recipes/:id" element={<RecipeDetail />} />
-      <Route path="/new" element={<CreateRecipe />} />
-      <Route path="/recipes/:id/edit" element={<EditRecipe />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Index />} />
+          <Route path="/recipes" element={<RecipeList />} />
+          <Route path="/recipes/:id" element={<RecipeDetail />} />
+          <Route path="/new" element={<CreateRecipe />} />
+          <Route path="/recipes/:id/edit" element={<EditRecipe />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
   );
 }
 
