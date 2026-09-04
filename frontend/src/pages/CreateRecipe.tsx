@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Ingredient } from "../types";
+import { units } from "../constants";
 
 function CreateRecipe() {
   const [name, setName] = useState("");
@@ -42,7 +43,7 @@ function CreateRecipe() {
   const addIngredient = () =>
     setIngredients([
       ...ingredients,
-      { name: "", amount: 0, unit: "", price: 0 },
+      { name: "", amount: 0, unit: units[0], price: 0 },
     ]);
 
   const updateIngredient = (
@@ -106,12 +107,17 @@ function CreateRecipe() {
               placeholder="mängd"
             />
 
-            <input
+            <select
               className={inputClass}
               value={ingredient.unit}
               onChange={(e) => updateIngredient(index, "unit", e.target.value)}
-              placeholder="enhet"
-            />
+            >
+              {units.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
+                </option>
+              ))}
+            </select>
           </div>
         ))}
 

@@ -29,10 +29,16 @@ export default function Index() {
 					Logout
 				</button>
 			) : (
-				<Link to="/login"
-					className="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 mt-2">
-					Login
-				</Link>
+				<div className="flex gap-3 mt-2">
+					<Link to="/login"
+						className="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">
+						Login
+					</Link>
+					<Link to="/register"
+						className="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">
+						Register
+					</Link>
+				</div>
 			)}
 		</div>
 	);

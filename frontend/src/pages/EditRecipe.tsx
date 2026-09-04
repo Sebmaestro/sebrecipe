@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Recipe, Ingredient } from "../types";
 import { useState, useEffect } from "react";
+import { units } from "../constants";
 
 
 function EditRecipe() {
@@ -51,7 +52,7 @@ function EditRecipe() {
     };
 
     const addIngredient = () =>
-        setIngredients([...ingredients, { name: "", amount: 0, unit: "", price: 0 }]);
+        setIngredients([...ingredients, { name: "", amount: 0, unit: units[0], price: 0 }]);
 
     const updateIngredient = (
         index: number,
@@ -69,6 +70,8 @@ function EditRecipe() {
 
     const removeIngredient = (index: number) =>
         setIngredients(ingredients.filter((_, i) => i !== index));
+
+    const inputClass = "border border-gray-300 rounded px-2 py-1";
 
     return (
         <div className="p-12 max-w-2xl mx-auto flex flex-col gap-2">
@@ -118,12 +121,18 @@ function EditRecipe() {
                         placeholder="Mängd"
                     />
 
-                    <input
-                        className="border border-gray-300 rounded px-2 py-1 w-24"
+                    <select
+                        className={`${inputClass} w-24`}
                         value={ingredient.unit}
                         onChange={(e) => updateIngredient(index, "unit", e.target.value)}
-                        placeholder="Enhet"
-                    />
+                    >
+                        
+                        {units.map((unit) => (
+                            <option key={unit} value={unit}>
+                                {unit}
+                            </option>
+                        ))}
+                    </select>
 
                     <input
                         className="border border-gray-300 rounded px-2 py-1 w-24"
