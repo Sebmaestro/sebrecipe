@@ -28,6 +28,7 @@ public class Recipe {
     private Long id;
 
     @ElementCollection
+    @OrderColumn(name = "ingredient_no")
     private List<Ingredient> ingredients;
 
     @ElementCollection
