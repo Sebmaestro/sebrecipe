@@ -27,10 +27,10 @@ function Login() {
 
     return (
         <div className="p-12 max-w-sm mx-auto flex flex-col gap-3">
-            <h1 className="text-2xl font-bold mb-2">Logga in</h1>
+            <h1 className="text-2xl font-bold mb-2">Login</h1>
 
             <label className="flex flex-col gap-1">
-                <span className="text-sm text-gray-600">Användarnamn</span>
+                <span className="text-sm text-gray-600">Username</span>
                 <input
                     className="border border-gray-300 rounded px-2 py-1"
                     value={username}
@@ -39,7 +39,7 @@ function Login() {
             </label>
 
             <label className="flex flex-col gap-1">
-                <span className="text-sm text-gray-600">Lösenord</span>
+                <span className="text-sm text-gray-600">Password</span>
                 <input
                     className="border border-gray-300 rounded px-2 py-1"
                     type="password"
@@ -56,11 +56,11 @@ function Login() {
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                 onClick={() => mutation.mutate({ username, password })}
             >
-                Logga in
+                Login
             </button>
 
             <Link to="/register" className="text-sm text-blue-600 hover:underline">
-                Skapa konto
+                Register
             </Link>
         </div>
     );

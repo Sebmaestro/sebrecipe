@@ -17,7 +17,7 @@ function RecipeDetail() {
       {data && (
         <>
           <Link to="/recipes" className="text-sm text-gray-500 hover:text-gray-900">
-            ← Alla recept
+            ← Back to recipes
           </Link>
           <div className="flex items-start justify-between mb-6">
             <div>
@@ -30,11 +30,11 @@ function RecipeDetail() {
               to={`/recipes/${id}/edit`}
               className="px-4 py-2 border border-gray-300 rounded text-sm hover:bg-gray-100"
             >
-              Redigera
+              Edit recipe
             </Link>
           </div>
 
-          <h2 className="text-lg font-medium mb-2">Ingredienser</h2>
+          <h2 className="text-lg font-medium mb-2">Ingredients</h2>
           <ul className="mb-8 space-y-1">
             {data.ingredients.map((ingredient, index) => (
               <li key={index} className="flex justify-between border-b border-gray-100 py-1">
@@ -47,7 +47,7 @@ function RecipeDetail() {
             ))}
           </ul>
 
-          <h2 className="text-lg font-medium mb-2">Instruktioner</h2>
+          <h2 className="text-lg font-medium mb-2">Instructions</h2>
           <ol className="space-y-3 list-decimal list-inside">
             {data.instructions.map((instruction, index) => (
               <li key={index}>{instruction}</li>

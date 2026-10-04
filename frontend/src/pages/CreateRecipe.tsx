@@ -60,7 +60,7 @@ function CreateRecipe() {
 
   return (
     <div className="p-12 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Skapa nytt recept</h1>
+      <h1 className="text-2xl font-bold mb-4">Create recipe</h1>
       <form
         className="flex flex-col gap-2"
         onSubmit={(e) => {
@@ -77,7 +77,7 @@ function CreateRecipe() {
           className={inputClass}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Receptnamn"
+          placeholder="Recipe name"
         />
 
         <input
@@ -85,7 +85,7 @@ function CreateRecipe() {
           type="number"
           value={calories}
           onChange={(e) => setCalories(e.target.value === "" ? "" : Number(e.target.value))}
-          placeholder="Kalorier"
+          placeholder="Calories"
         />
 
         {ingredients.map((ingredient, index) => (
@@ -94,7 +94,7 @@ function CreateRecipe() {
               className={inputClass}
               value={ingredient.name}
               onChange={(e) => updateIngredient(index, "name", e.target.value)}
-              placeholder="ingrediens"
+              placeholder="ingredient"
             />
 
             <input
@@ -104,7 +104,7 @@ function CreateRecipe() {
               onChange={(e) =>
                 updateIngredient(index, "amount", Number(e.target.value))
               }
-              placeholder="mängd"
+            //placeholder="mängd"
             />
 
             <select
@@ -126,7 +126,7 @@ function CreateRecipe() {
           type="button"
           onClick={addIngredient}
         >
-          + Lägg till ingrediens
+          + Add ingredient
         </button>
 
         {instructions.map((step, index) => (
@@ -135,7 +135,7 @@ function CreateRecipe() {
             key={index}
             value={step}
             onChange={(e) => updateStep(index, e.target.value)}
-            placeholder={`Steg ${index + 1}`}
+            placeholder={`Step ${index + 1}`}
           />
         ))}
 
@@ -144,16 +144,20 @@ function CreateRecipe() {
           type="button"
           onClick={addStep}
         >
-          + Lägg till steg
+          + Add step
         </button>
 
         <button
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           type="submit"
         >
-          Spara
+          Save recipe
         </button>
       </form>
+
+      <p className="text-xs text-gray-400 mt-1">
+        pcs = pieces, tbsp = tablespoons, tsp = teaspoons, pinch = kryddmått (swedish)
+      </p>
     </div>
   );
 }

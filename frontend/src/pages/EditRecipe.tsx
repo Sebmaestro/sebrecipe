@@ -75,12 +75,12 @@ function EditRecipe() {
 
     return (
         <div className="p-12 max-w-2xl mx-auto flex flex-col gap-2">
-            {isLoading && <p>Laddar...</p>}
-            {error && <p>Fel: {error.message}</p>}
-            <h1 className="text-2xl font-bold mb-4">Redigera recept</h1>
+            {isLoading && <p>Loading...</p>}
+            {error && <p>Error: {error.message}</p>}
+            <h1 className="text-2xl font-bold mb-4">Edit recipe</h1>
 
             <label className="flex flex-col gap-1">
-                <span className="text-sm text-gray-600">Receptnamn</span>
+                <span className="text-sm text-gray-600">Recipe name</span>
                 <input
                     className="border border-gray-300 rounded px-2 py-1"
                     value={name}
@@ -88,7 +88,7 @@ function EditRecipe() {
                 />
             </label>
             <label className="flex flex-col gap-1">
-                <span className="text-sm text-gray-600">Kalorier</span>
+                <span className="text-sm text-gray-600">Calories</span>
                 <input
                     className="border border-gray-300 rounded px-2 py-1"
                     type="number"
@@ -96,12 +96,12 @@ function EditRecipe() {
                     onChange={(e) => setCalories(Number(e.target.value))}
                 />
             </label>
-            <h2 className="text-lg font-medium mt-6 mb-2">Ingredienser</h2>
+            <h2 className="text-lg font-medium mt-6 mb-2">Ingredients</h2>
             <div className="flex gap-2 text-sm text-gray-600">
-                <span className="w-40">Namn</span>
-                <span className="w-24">Mängd</span>
-                <span className="w-24">Enhet</span>
-                <span className="w-24">Pris</span>
+                <span className="w-40">Name</span>
+                <span className="w-24">Amount</span>
+                <span className="w-24">Unit</span>
+                <span className="w-24">Price</span>
                 <span className="w-8"></span>
             </div>
             {ingredients.map((ingredient, index) => (
@@ -110,7 +110,7 @@ function EditRecipe() {
                         className="border border-gray-300 rounded px-2 py-1 w-40"
                         value={ingredient.name}
                         onChange={(e) => updateIngredient(index, "name", e.target.value)}
-                        placeholder="Ingrediensnamn"
+                        placeholder="Ingredient name"
                     />
 
                     <input
@@ -118,7 +118,7 @@ function EditRecipe() {
                         type="number"
                         value={ingredient.amount}
                         onChange={(e) => updateIngredient(index, "amount", Number(e.target.value))}
-                        placeholder="Mängd"
+                        //placeholder="Amount"
                     />
 
                     <select
@@ -139,7 +139,7 @@ function EditRecipe() {
                         type="number"
                         value={ingredient.price}
                         onChange={(e) => updateIngredient(index, "price", Number(e.target.value))}
-                        placeholder="Pris"
+                        //placeholder="Pris"
                     />
 
                     <button
@@ -152,17 +152,17 @@ function EditRecipe() {
 
                 </div>
             ))}
-            <button className="px-3 py-1 border border-gray-400 rounded text-sm hover:bg-gray-100" type="button" onClick={addIngredient}>+ Lägg till ingrediens</button>
+            <button className="px-3 py-1 border border-gray-400 rounded text-sm hover:bg-gray-100" type="button" onClick={addIngredient}>+ Add ingredient</button>
             <hr className="my-6 border-gray-300" />
-
-            <h2 className="text-lg font-medium mb-2">Instruktioner</h2>
+            
+            <h2 className="text-lg font-medium mb-2">Instructions</h2>
             {instructions.map((step, index) => (
                 <div key={index} className="flex gap-2">
                     <input
                         className="border border-gray-300 rounded px-2 py-1 flex-1"
                         value={step}
                         onChange={(e) => updateStep(index, e.target.value)}
-                        placeholder={`Steg ${index + 1}`}
+                        placeholder={`Step ${index + 1}`}
                     />
                     <button
                         type="button"
@@ -179,7 +179,7 @@ function EditRecipe() {
                 type="button"
                 onClick={addStep}
             >
-                + Lägg till steg
+                + Add step
             </button>
 
 
@@ -187,7 +187,7 @@ function EditRecipe() {
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                 onClick={() => data && mutation.mutate({ ...data, name, calories: calories === "" ? 0 : calories, ingredients, instructions })}
             >
-                Spara
+                Save changes
             </button>
 
 

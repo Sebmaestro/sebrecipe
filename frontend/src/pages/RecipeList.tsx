@@ -28,8 +28,8 @@ function RecipeList() {
 
   return (
     <div className="p-12 max-w-2xl mx-auto">
-      {isLoading && <p>Laddar...</p>}
-      {error && <p className="text-red-600">Fel: {error.message}</p>}
+      {isLoading && <p>Loading...</p>}
+      {error && <p className="text-red-600">Error: {error.message}</p>}
 
       {data && (
         <>
@@ -37,20 +37,20 @@ function RecipeList() {
             onClick={() => logout.mutate()}
             className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100"
           >
-            Logga ut
+            Logout
           </button>
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold">Recept</h1>
+            <h1 className="text-3xl font-bold">Recipes</h1>
             <Link
               to="/new"
               className="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
             >
-              + Nytt recept
+              + New recipe
             </Link>
           </div>
 
           {data.length === 0 ? (
-            <p className="text-gray-500">Inga recept än. Skapa ditt första!</p>
+            <p className="text-gray-500">No recipes yet. Create your first one!</p>
           ) : (
             <ul className="divide-y divide-gray-200">
               {data.map((recipe) => (

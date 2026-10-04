@@ -17,9 +17,9 @@ export default function Index() {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center p-12">
-			<h1 className="text-4xl font-bold text-gray-900">Welcome to the best recipe website ever</h1>
+			<h1 className="text-4xl font-bold text-gray-900">Welcome to "placeholder name"</h1>
 			<p className="text-gray-500 max-w-md">
-				Samla dina recept, håll koll på ingredienser och kalorier — allt på ett ställe.
+				Here you can add all your favorite recipes and store them in one convenient place. 
 			</p>
 
 			{username ? (
