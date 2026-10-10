@@ -17,7 +17,7 @@ export default function Index() {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center p-12">
-			<h1 className="text-4xl font-bold text-gray-900">Welcome to "placeholder name"</h1>
+			<h1 className="text-4xl font-bold text-gray-900">Welcome to recipebook</h1>
 			<p className="text-gray-500 max-w-md">
 				Here you can add all your favorite recipes and store them in one convenient place. 
 			</p>
